@@ -27,7 +27,7 @@ dataclasses = "^0.8"
 
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.1"
 requests = "^2.23"
 flake8 = "^3.9"
 tox = "^3.9"
@@ -41,7 +41,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.pytest.ini_options]
-addopts = "--cov=model"
+addopts = "-v"
 testpaths = [
     "tests",
 ]

@@ -20,8 +20,9 @@ class Database:
     def __init__(self, file_name: str):
         # Make folder if not exists
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file_name)
-        _path = file_name[0: __match.start() + 1]
-        Path(_path).mkdir(parents=True, exist_ok=True)
+        if __match is not None:
+            _path = file_name[0: __match.start() + 1]
+            Path(_path).mkdir(parents=True, exist_ok=True)
         # Connect the database
         self.conn = Connection(file_name)
         self.curr = self.conn.cursor()
@@ -64,8 +65,8 @@ def find_relation(
     return relation
 
 
-def analysis(words: List[str], db: Database) -> List[Tuple]:
-    retLst: List[Tuple] = []
+def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
+    retLst: List[Tuple[str, str]] = []
     i: int = 0
     L: int = len(words)
     while i < L:
@@ -105,12 +106,12 @@ class Node:
 
     data: str
     type: str
-    children: List
+    children: List[Any]
     length: int
     parent: Any
     relation: str
 
-    def __init__(self, data: Tuple[str]) -> None:
+    def __init__(self, data: Tuple[str, str]) -> None:
         self.data = data[0]
         self.type = data[1]
         self.children = []
@@ -239,7 +240,7 @@ class Parser:
     def shift(self) -> Node:
         __tmp: Node = Node(("null", "null"))
         try:
-            __tmp: Node = self.__buffer__.pop()
+            __tmp = self.__buffer__.pop()
             self.__stack__.append(__tmp)
         except IndexError:
             print("Warning: Empty stack!!!")
@@ -281,8 +282,9 @@ class Parser:
     def AnalysisGrammarRelationTree(self, file: str):
         content = self.root.buildTree()
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file)
-        _path = file[0: __match.start() + 1]
-        Path(_path).mkdir(parents=True, exist_ok=True)
+        if __match is not None:
+            _path = file[0: __match.start() + 1]
+            Path(_path).mkdir(parents=True, exist_ok=True)
         with open(file, "w", encoding="utf-8") as fp:
             fp.seek(0)
             fp.write(content)
