@@ -46,8 +46,7 @@ def lookup(word: str, db: Database):
 
 
 def find_relation(
-    first: str, second: str, db: Database,
-    nsubj: bool = False, dobj: bool = False
+    first: str, second: str, db: Database, nsubj: bool = False, dobj: bool = False
 ) -> str:
     relation: str = "TBD"
     db.curr.execute(RELATION_SEARCH.format(first=first, second=second))
@@ -96,17 +95,22 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
                 # Check if get the other value will pop it
                 if found > 0:
                     tmp = retLst.pop()
-                    if tmp[1]== wType: verb = False # To reset found verb
+                    if tmp[1] == wType:
+                        verb = False  # To reset found verb
                 retLst.append((word, wType))
                 found = num
-                if wType=="VERB": verb = True # To know that get verb already
+                if wType == "VERB":
+                    verb = True  # To know that get verb already
                 # Special case
-                if (word=="đến") and (wType=="VERB") and (verb):
+                if (word == "đến") and (wType == "VERB") and (verb):
                     # Skip "đến" as "VERB"
                     retLst.pop()
             else:
                 Fwords.append(jword.strip())
-        if found == 0: raise Exception(f"NOT FOUND IN DATABASE: \"{words[i]}\" with the word list: {Fwords}")
+        if found == 0:
+            raise Exception(
+                f'NOT FOUND IN DATABASE: "{words[i]}" with the word list: {Fwords}'
+            )
         i += found
         continue
     return retLst
@@ -166,15 +170,15 @@ class Parser:
     __nSkip__: int
 
     def __init__(self, text: str, db: Database):
-        self.text = text.lower().replace("tp.","tp ")
-        self.text = self.text.replace(","," ")
+        self.text = text.lower().replace("tp.", "tp ")
+        self.text = self.text.replace(",", " ")
         print(self.text)
         self.root = Node(("ROOT", "ROOT"))
         self.__buffer__ = []
         self.__db__ = db
         self.__nSkip__ = 0
-        self.__dobj__ = False # To inform that if it found nsubj yet
-        self.__nsubj__ = False # To inform that if it found nsubj yet
+        self.__dobj__ = False  # To inform that if it found nsubj yet
+        self.__nsubj__ = False  # To inform that if it found nsubj yet
         __words = analysis(self.text.split(), self.__db__)
         for e in __words:
             self.__buffer__.append(Node(e))
@@ -267,12 +271,10 @@ class Parser:
             topBuff: Node = self.getTopBuffr()
             # check for the relation
             resRA = find_relation(
-                topStack.type, topBuff.type, self.__db__,
-                self.__nsubj__, self.__dobj__
+                topStack.type, topBuff.type, self.__db__, self.__nsubj__, self.__dobj__
             )
             resLA = find_relation(
-                topBuff.type, topStack.type, self.__db__,
-                self.__nsubj__, self.__dobj__
+                topBuff.type, topStack.type, self.__db__, self.__nsubj__, self.__dobj__
             )
             if resRA != "TBD":
                 self.RA(resRA)
