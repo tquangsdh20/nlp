@@ -5,8 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from model.Parser import Parser, Node
 
 # test func Node
-# def test_node(capfd):
-def test_node():
+def test_node(capfd):
     # Create nodes
     root = Node(('ROOT','TBD'))
     verb = Node(('xuất phát','VERB'))
@@ -40,4 +39,4 @@ def test_node():
     '(thành', 'phố', '((nmod',
     '(hồ', 'chí', 'minh))', ')))', ')))',
     '(prep', '(lúc', '((pobj', '(14:30HR))', ')))',
-    '(punc', '(?.))', ')))', '))']
+    '(punc', '(?.))', ')))', ')))']
