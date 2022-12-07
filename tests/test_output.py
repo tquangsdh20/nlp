@@ -5,8 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from model.Parser import Parser, Node
 
 # test func Node
-# def test_node(capfd):
-def test_node():
+def test_node(capfd):
     # Create nodes
     root = Node(('ROOT','TBD'))
     verb = Node(('xuất phát','VERB'))
@@ -31,8 +30,13 @@ def test_node():
     # Print the Tree
     print(root.buildTree())
     # Capture the stdout
-#     out, err = capfd.readouterr()
-#     assert out.split() == ['(root', '(xuất', 'phát', '((nsubj', '(máy', 'bay', '((det', '(nào))', ')))', '(prep', '(từ', '((pobj', '(thành', 'phố', '((nmod', '(hồ', 'chí', 'minh))', ')))', ')))', '(prep', 
-# '(lúc', '((pobj', '(14:30HR))', ')))', '(punc', '(?.))', ')))']
-
-test_node()
+    out, err = capfd.readouterr()
+    assert out.split() == ['(ROOT',
+    '((root', '(xuất', 'phát',
+    '((nsubj', '(máy', 'bay',
+    '((det', '(nào))', ')))',
+    '(prep', '(từ', '((pobj',
+    '(thành', 'phố', '((nmod',
+    '(hồ', 'chí', 'minh))', ')))', ')))',
+    '(prep', '(lúc', '((pobj', '(14:30HR))', ')))',
+    '(punc', '(?.))', ')))', '))']
