@@ -60,15 +60,16 @@ def find_relation(
         else:
             relation = res[2][0]
     else:
-        # (relation,)
         relation = (res[0])[0]
     return relation
 
 
 def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
+    """Searching the list of words in database"""
     retLst: List[Tuple[str, str]] = []
     i: int = 0
     L: int = len(words)
+    verb: bool = False
     while i < L:
         # Get the list of matching words
         lexicons = lookup(words[i].lower(), db)
@@ -80,6 +81,7 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
             i += 1
             continue
         # In case of found in Database
+        Fwords = []
         while len(lexicons) > 0:
             # lexicon = word | number of words | type of word
             lexicon = lexicons.pop()
@@ -87,14 +89,24 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
             num = lexicon[1]
             wType = lexicon[2]
             jword: str = ""
+            # Get the neibours of words with the number
             for j in range(num):
                 jword += f" {words[i+j]}"
             if (jword.strip().lower() == word) and (found < num):
                 # Check if get the other value will pop it
                 if found > 0:
-                    retLst.pop()
+                    tmp = retLst.pop()
+                    if tmp[1]== wType: verb = False # To reset found verb
                 retLst.append((word, wType))
                 found = num
+                if wType=="VERB": verb = True # To know that get verb already
+                # Special case
+                if (word=="đến") and (wType=="VERB") and (verb):
+                    # Skip "đến" as "VERB"
+                    retLst.pop()
+            else:
+                Fwords.append(jword.strip())
+        if found == 0: raise Exception(f"NOT FOUND IN DATABASE: \"{words[i]}\" with the word list: {Fwords}")
         i += found
         continue
     return retLst
@@ -139,7 +151,6 @@ class Node:
         elif self.relation == "TBD":
             return f"({self.data} ({xfactor}))"
         else:
-            # return f"({self.relation} ({self.data}))"
             return f"({self.relation} ({self.data} ({xfactor})))"
 
 
@@ -155,14 +166,16 @@ class Parser:
     __nSkip__: int
 
     def __init__(self, text: str, db: Database):
-        self.text = text
+        self.text = text.lower().replace("tp.","tp ")
+        self.text = self.text.replace(","," ")
+        print(self.text)
         self.root = Node(("ROOT", "ROOT"))
         self.__buffer__ = []
         self.__db__ = db
         self.__nSkip__ = 0
-        self.__dobj__ = False
-        self.__nsubj__ = False
-        __words = analysis(text.split(), self.__db__)
+        self.__dobj__ = False # To inform that if it found nsubj yet
+        self.__nsubj__ = False # To inform that if it found nsubj yet
+        __words = analysis(self.text.split(), self.__db__)
         for e in __words:
             self.__buffer__.append(Node(e))
         self.__buffer__.reverse()
@@ -196,6 +209,7 @@ class Parser:
         # 3. Reduce if not verb and not any relation with the next input
         nextInput = self.getTopBuffr()
         if topBuffer.type == "VERB":  # Is it VERB?
+            # self.__verb__ = True
             # self.root.add_child(topBuffer, relation)
             pass
         elif (

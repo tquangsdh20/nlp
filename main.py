@@ -18,6 +18,7 @@ if __name__ == "__main__":
     with open("./input/query.csv",'r', encoding="utf-8") as fp:
         lines = fp.readlines()
         for line in lines:
+            print(line.strip())
             p = Parser(line, db)
             p.do_MaltParser()
             p.AnalysisGrammarRelationTree(f"./output/output{lines.index(line)}.txt")
