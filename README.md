@@ -6,83 +6,10 @@ Xây dựng hệ thống hỏi đáp đơn giản về các chuyến bay nội �
 
 ## Cơ sở dữ liệu các chuyến bay
 
-Dữ liệu về các chuyến bay có sẵn trong hệ thống gồm 3 bảng sau:
+Dữ liệu về các chuyến bay có sẵn trong hệ thống gồm 4 bảng sau:
 
-<p align="center">
-    <div align="center">
-        <table border="1" class="dataframe">
-            <thead>
-				<h4>MÁY BAY</h4>
-                <tr style="text-align: right;"><th>flight</th></tr>
-            </thead>
-            <tbody>
-                <tr><th>M1</th></tr>
-                <tr><th>M2</th></tr>
-                <tr><th>M3</th></tr>
-                <tr><th>M4</th></tr>
-                <tr><th>M5</th></tr>
-                <tr><th>M6</th></tr>
-            </tbody>
-        </table>
-    </div>
-</p>
-
-<p align="center">
-    <div align="center">
-        <table border="1" class="dataframe">
-            <thead>
-				<h4>CHUYẾN BAY ĐI - ATIME</h4>
-                <tr style="text-align: right;"><th>id</th><th>flight</th><th>place</th><th>time</th></tr>
-            </thead>
-            <tbody>
-                <tr><th>1</th><td>M1</td><td>HUE</td>     <td>11:00HR</td></tr>
-                <tr><th>2</th><td>M2</td><td>HUE</td>     <td>13:30HR</td></tr>
-                <tr><th>3</th><td>M3</td><td>HCM</td>     <td>16:30HR</td></tr>
-                <tr><th>4</th><td>M4</td><td>HAIPHONG</td><td>10:30HR</td></tr>
-                <tr><th>5</th><td>M5</td><td>HN</td>      <td>05:45HR</td></tr>
-                <tr><th>6</th><td>M6</td><td>HAIPHONG</td><td>11:30HR</td></tr>
-            </tbody>
-        </table>
-    </div>
-</p>
-
-<p align="center">
-    <div align="center">
-        <table border="1" class="dataframe">
-            <thead>
-				<h4>CHUYẾN BAY ĐẾN - DTIME</h4>
-                <tr style="text-align: right;"><th>id</th><th>flight</th><th>place</th><th>time</th></tr>
-            </thead>
-            <tbody>
-                <tr><th>1</th><td>M1</td><td>HCMC</td><td>10:00HR</td></tr>
-                <tr><th>2</th><td>M2</td><td>HN</td><td>12:30HR</td></tr>
-                <tr><th>3</th><td>M3</td><td>DANANG</td><td>15:00HR</td></tr>
-                <tr><th>4</th><td>M4</td><td>DANANG</td><td>08:30HR</td></tr>
-                <tr><th>5</th><td>M5</td><td>HCM</td><td>03:30HR</td></tr>
-                <tr><th>6</th><td>M6</td><td>HCMC</td><td>09:30HR</td></tr>
-            </tbody>
-        </table>
-    </div>
-</p>
-
-<p align="center">
-    <div align="center">
-        <table border="1" class="dataframe">
-            <thead>
-				<h4>RUN-TIME</h4>
-                <tr style="text-align: right;"><th>id</th><th>flight</th><th>src</th><th>dest</th><th>time</th></tr>
-            </thead>
-            <tbody>
-                <tr><th>1</th><td>M1</td><td>HCMC</td><td>HUE</td><td>1:00HR</td></tr>
-                <tr><th>2</th><td>M2</td><td>HN</td><td>HUE</td><td>1:00HR</td></tr>
-                <tr><th>3</th><td>M3</td><td>DANANG</td><td>HCM</td><td>1:30HR</td></tr>
-                <tr><th>4</th><td>M4</td><td>DANANG</td><td>HAIPHONG</td><td>02:00HR</td></tr>
-                <tr><th>5</th><td>M5</td><td>HCM</td><td>HN</td><td>02:15HR</td></tr>
-                <tr><th>6</th><td>M6</td><td>HCMC</td><td>HAIPHONG</td><td>02:00HR</td></tr>
-            </tbody>
-        </table>
-    </div>
-</p>
+<p align="center"><img src="https://user-images.githubusercontent.com/87520683/206459244-3a44ab03-cead-485b-b46b-2680d62cf563.png"> <img src="https://user-images.githubusercontent.com/87520683/206459281-16fbc036-7eec-4263-9cde-498a6bdfbb7e.png"> </p>
+<p align="center"><img src="https://user-images.githubusercontent.com/87520683/206459301-4a9434c5-6bf5-4dae-97f7-6eca2f116cb9.png"> <img src="https://user-images.githubusercontent.com/87520683/206459323-c163b1b5-dd44-4931-9823-60c0cb94f865.png"></p>
 
 ## Các câu truy vấn
 
