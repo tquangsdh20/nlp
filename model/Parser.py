@@ -21,7 +21,7 @@ class Database:
         # Make folder if not exists
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file_name)
         if __match is not None:
-            _path = file_name[0: __match.start() + 1]
+            _path = file_name[0 : __match.start() + 1]
             Path(_path).mkdir(parents=True, exist_ok=True)
         # Connect the database
         self.conn = Connection(file_name)
@@ -38,11 +38,14 @@ class Database:
         self.curr.close()
         self.conn.close()
 
+
 def isNumber(text: str):
     return text.isnumeric()
 
+
 def isTime(text: str):
     return bool(re.search("(\\d+:\\d+)", text))
+
 
 def lookup(word: str, db: Database):
     db.curr.execute(WORD_SEARCH.format(word=word))
@@ -223,19 +226,18 @@ class Parser:
         # 2. Add the relation
         topStack.add_child(topBuffer, relation)
         # 3. Reduce if not verb and not any relation with the next input
-        nextInput = self.getTopBuffr()
         # - Is it VERB?
-        if topBuffer.type == "VERB":  
+        if topBuffer.type == "VERB":
             # self.__verb__ = True
             # self.root.add_child(topBuffer, relation)
             pass
         else:  # Reduce
             # If have any relation with the remainding items
             dumpBffr = self.__buffer__.copy()
-            while len(dumpBffr)>0:
+            while len(dumpBffr) > 0:
                 item = dumpBffr.pop()
                 if find_relation(topBuffer.type, item.type, self.__db__) != "TBD":
-                    self.__nSkip__ += 1 # Counter reduce must be increased
+                    self.__nSkip__ += 1  # Counter reduce must be increased
                     return
             # No any relations with all the remainding items --> REDUCE
             self.reduce()
@@ -311,7 +313,7 @@ class Parser:
         content = self.root.buildTree()
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file)
         if __match is not None:
-            _path = file[0: __match.start() + 1]
+            _path = file[0 : __match.start() + 1]
             Path(_path).mkdir(parents=True, exist_ok=True)
         with open(file, "w", encoding="utf-8") as fp:
             fp.seek(0)
