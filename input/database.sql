@@ -131,14 +131,14 @@ INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('31', 'hn', '1', 'NA
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('13', 'ở', '1', 'PREP');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('14', 'từ', '1', 'PREP');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('15', 'lúc', '1', 'PREP');
-INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('26', 'đến', '1', 'PREP');
+INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('26', 'đến', '1', 'VERB');
 -- DET type
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('16', 'nào', '1', 'WDET');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('17', 'mấy', '1', 'WDET');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('18', 'hãy cho biết', '3', 'WDET');
 -- Verb datatype
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('19', 'bay', '1', 'VERB');
-INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('20', 'đến', '1', 'VERB');
+INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('20', 'đến', '1', 'PREP');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('21', 'xuất phát', '2', 'VERB');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('22', 'ra', '1', 'VERB');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('23', 'đi', '1', 'VERB');

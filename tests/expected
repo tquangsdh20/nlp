@@ -3,7 +3,7 @@
     "output2": "(ROOT ((root (bay ((nsubj (máy bay ((det (nào))\n\t)))\n\t(prep (từ ((pobj (đà nẵng))\n\t)))\n\t(prep (đến ((pobj (tp ((nmod (hồ chí minh))\n\t)))\n\t)))\n\t(ccomp (mất ((iobj (giờ ((nummod (1))\n\t)))\n\t(punc (?.))\n\t)))\n\t)))\n\t))\n",
     "output3": "",
     "output4": "(ROOT ((root (xuất phát ((nsubj (máy bay ((det (nào))\n\t)))\n\t(prep (từ ((pobj (tp ((nmod (hồ chí minh))\n\t)))\n\t)))\n\t(prep (lúc ((pobj (giờ ((det (mấy))\n\t)))\n\t)))\n\t(punc (?.))\n\t)))\n\t))\n",
-    "output5": "",
+    "output5": "(ROOT ((root (bay ((nsubj (máy bay ((det (nào))\n\t)))\n\t(prep (từ ((pobj (tp ((nmod (hồ chí minh))\n\t)))\n\t)))\n\t(prep (đến ((pobj (hà nội))\n\t)))\n\t(punc (?.))\n\t)))\n\t))",
     "output6": "",
     "output7": "",
     "output8": ""

@@ -17,7 +17,7 @@ class Database:
     conn: Connection
     curr: Cursor
 
-    def __init__(self, file_name: str):
+    def __init__(self, file_name: str = "./input/database.db"):
         # Make folder if not exists
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file_name)
         if __match is not None:
@@ -116,11 +116,12 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
                 retLst.append((word, wType))
                 found = num
                 if wType == "VERB":
-                    verb = True  # To know that get verb already
-                # Special case
-                if (word == "đến") and (wType == "VERB") and (verb):
-                    # Skip "đến" as "VERB"
-                    retLst.pop()
+                    if (word == "đến") and verb:
+                        # Skip "đến" as "VERB"
+                        retLst.pop()
+                        found = 0 # Điều kiện để nhận từ mới phải reset lại
+                    else:    
+                        verb = True  # To know that get verb already
             else:
                 Fwords.append(jword.strip())
         if found == 0:
@@ -185,18 +186,19 @@ class Parser:
     __stack__: List[Node]
     __nSkip__: int
 
-    def __init__(self, text: str, db: Database):
-        self.text = text.lower().replace("tp.", "tp ")
-        self.text = self.text.replace(",", " ")
+    def __init__(self, text: str, file: str = "./input/database.db"):
+        __tmp = text.lower().replace("tp.", "tp ")
+        __tmp = __tmp.replace(",", " ")
         self.root = Node(("ROOT", "ROOT"))
         self.__buffer__ = []
-        self.__db__ = db
+        self.__db__ = Database(file)
         self.__nSkip__ = 0
         self.__dobj__ = False  # To inform that if it found nsubj yet
         self.__nsubj__ = False  # To inform that if it found nsubj yet
-        __words = analysis(self.text.split(), self.__db__)
+        __words = analysis(__tmp.split(), self.__db__)
         for e in __words:
             self.__buffer__.append(Node(e))
+        self.text = f"{self.getInfoWords()}"
         self.__buffer__.reverse()
         self.__stack__ = [self.root]
 
@@ -310,7 +312,7 @@ class Parser:
         return
 
     def AnalysisGrammarRelationTree(self, file: str):
-        content = self.root.buildTree()
+        content = f"{self.text}\n{self.root.buildTree()}"
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file)
         if __match is not None:
             _path = file[0 : __match.start() + 1]
@@ -319,13 +321,21 @@ class Parser:
             fp.seek(0)
             fp.write(content)
         return
-
+    
+    def getInfoWords(self):
+        lex = []
+        for e in self.__buffer__:
+            lex.append((e.data,e.type))
+        return lex
+    
     def print_buffer(self):
         __data = []
         __type = []
         for e in self.__buffer__:
             __data.append(e.data)
             __type.append(e.type)
+        __data.reverse()
+        __type.reverse()
         print(__data)
         print(__type)
 
