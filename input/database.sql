@@ -95,12 +95,12 @@ INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('5', 'poss
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('6', 'prep', 'VERB', 'PREP');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('7', 'aux', 'TO', '');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('8', 'amod', 'NOUN', 'ADJ');
-INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('9', 'nmod', 'NOUN', 'N NAME');
+INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('9', 'nmod', 'NOUN', 'NOUN NAME');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('10', 'nummod', 'NOUN', 'NUMBER');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('11', 'conj', '', '');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('12', 'cc', 'AND, OR', '');
-INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('13', 'ccomp', 'TBD', 'TBD');
-INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('14', 'xcomp', 'TBD', 'TBD');
+INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('13', 'ccomp', 'VERB', 'VERB');
+INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('14', 'xcomp', 'VERB', 'TO');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('15', 'punc', 'VERB', 'EOL');
 INSERT INTO "RELATIONS" ("id", "relation", "first", "second") VALUES ('16', 'det', 'NOUN', 'DET WDET');
 -- LEXICON
@@ -115,9 +115,9 @@ CREATE TABLE "LEXICON" (
 -- Noun type
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('1', 'máy bay', '2', 'NOUN');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('2', 'thành phố', '2', 'NOUN');
---INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('3', 'tp.', '1', 'NOUN');
+INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('3', 'mất', '1', 'VERB');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('4', 'tp', '1', 'NOUN');
---INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('5', 'tp.hcm', '1', 'NOUN');
+INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('5', 'hà nội', '2', 'NAME');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('6', 'mã hiệu', '2', 'NOUN');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('7', 'giờ', '1', 'NOUN');
 -- NAME type
@@ -126,7 +126,7 @@ INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('9', 'hồ chí minh
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('10', 'đà nẵng', '2', 'NAME');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('11', 'hcm', '1', 'NAME');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('12', 'hải phòng', '2', 'NAME');
---INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('31', 'tp.hồ chí minh', '3', 'NAME');
+INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('31', 'hn', '1', 'NAME');
 -- PREP type
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('13', 'ở', '1', 'PREP');
 INSERT INTO "LEXICON" ("id", "word", "num", "type") VALUES ('14', 'từ', '1', 'PREP');

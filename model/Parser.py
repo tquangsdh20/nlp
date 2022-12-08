@@ -21,13 +21,13 @@ class Database:
         # Make folder if not exists
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file_name)
         if __match is not None:
-            _path = file_name[0: __match.start() + 1]
+            _path = file_name[0 : __match.start() + 1]
             Path(_path).mkdir(parents=True, exist_ok=True)
         # Connect the database
         self.conn = Connection(file_name)
         self.curr = self.conn.cursor()
 
-    def init(self, table_name: str = "FLIGHT"):
+    def init(self):
         """Init database with default requirements"""
         fp = open("./input/database.sql", encoding="utf-8")
         self.curr.executescript(fp.read())
@@ -38,6 +38,11 @@ class Database:
         self.curr.close()
         self.conn.close()
 
+def isNumber(text: str):
+    return text.isnumeric()
+
+def isTime(text: str):
+    return bool(re.search("(\\d+:\\d+)", text))
 
 def lookup(word: str, db: Database):
     db.curr.execute(WORD_SEARCH.format(word=word))
@@ -74,9 +79,17 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
         lexicons = lookup(words[i].lower(), db)
         # Proceed item by item
         found: int = 0
-        # Flag for not found
+        # Not found word in Dictionary
         if len(lexicons) == 0:
-            retLst.append((f"{words[i]}", "TBD"))
+            # Check if it was type of NUMBER
+            if isNumber(words[i]):
+                retLst.append((f"{words[i]}", "NUM"))
+            # Check if it was TIME-type
+            elif isTime(words[i]):
+                retLst.append((f"{words[i]}", "TIME"))
+            # In case of not matching any --> To be define
+            else:
+                retLst.append((f"{words[i]}", "TBD"))
             i += 1
             continue
         # In case of found in Database
@@ -172,7 +185,6 @@ class Parser:
     def __init__(self, text: str, db: Database):
         self.text = text.lower().replace("tp.", "tp ")
         self.text = self.text.replace(",", " ")
-        print(self.text)
         self.root = Node(("ROOT", "ROOT"))
         self.__buffer__ = []
         self.__db__ = db
@@ -299,7 +311,7 @@ class Parser:
         content = self.root.buildTree()
         __match = re.search("([\\/]([\\w\\s]+[\\.][a-z]+)$)", file)
         if __match is not None:
-            _path = file[0: __match.start() + 1]
+            _path = file[0 : __match.start() + 1]
             Path(_path).mkdir(parents=True, exist_ok=True)
         with open(file, "w", encoding="utf-8") as fp:
             fp.seek(0)
