@@ -14,4 +14,3 @@ if __name__ == "__main__":
         # print(parser.text)
         parser.do_MaltParser()
         parser.AnalysisGrammarRelationTree(f"./output/output{index+1}.txt")
-    

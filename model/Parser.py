@@ -119,8 +119,8 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
                     if (word == "đến") and verb:
                         # Skip "đến" as "VERB"
                         retLst.pop()
-                        found = 0 # Điều kiện để nhận từ mới phải reset lại
-                    else:    
+                        found = 0  # Điều kiện để nhận từ mới phải reset lại
+                    else:
                         verb = True  # To know that get verb already
             else:
                 Fwords.append(jword.strip())
@@ -321,13 +321,13 @@ class Parser:
             fp.seek(0)
             fp.write(content)
         return
-    
+
     def getInfoWords(self):
         lex = []
         for e in self.__buffer__:
-            lex.append((e.data,e.type))
+            lex.append((e.data, e.type))
         return lex
-    
+
     def print_buffer(self):
         __data = []
         __type = []

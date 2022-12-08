@@ -5,6 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from model.Parser import Parser, Node, Database
 import tempfile
 import json
+
 # test func Node
 def test_node(capfd):
     # Create nodes
@@ -65,11 +66,13 @@ def test_node(capfd):
         "))",
     ]
 
+
 import json
 
 js = dict()
-with open("./tests/expected","r",encoding="utf-8") as fp:
+with open("./tests/expected", "r", encoding="utf-8") as fp:
     js = json.loads(fp.read())
+
 
 def testcase04(capfd):
     folder = tempfile.TemporaryDirectory()
@@ -81,7 +84,7 @@ def testcase04(capfd):
     p.close()
     # db.close()
     out, err = capfd.readouterr()
-    with open("./tests/expected","r",encoding="utf-8") as fp:
+    with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
         assert out == js["output4"]
 
@@ -96,6 +99,6 @@ def testcase02(capfd):
     p.close()
     # db.close()
     out, err = capfd.readouterr()
-    with open("./tests/expected","r",encoding="utf-8") as fp:
+    with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
         assert out == js["output2"]
