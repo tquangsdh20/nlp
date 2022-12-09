@@ -46,8 +46,10 @@ def isNumber(text: str):
 def isTime(text: str):
     return bool(re.search("(\\d+:\\d+)", text))
 
+
 def isMaHieu(text: str):
     return bool(re.search("m\\d", text))
+
 
 def lookup(word: str, db: Database):
     db.curr.execute(WORD_SEARCH.format(word=word))
@@ -96,7 +98,7 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
                 retLst.append((f"{words[i]}", "NAME"))
             # In case of not matching any --> To be define
             else:
-            # Due to simplization parser will skip unknown word
+                # Due to simplization parser will skip unknown word
                 # retLst.append((f"{words[i]}", "TBD"))
                 pass
             i += 1
