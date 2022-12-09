@@ -78,11 +78,11 @@ def testcase04(capfd):
     folder = tempfile.TemporaryDirectory()
     db = Database(f"{folder.name}/temp.db")
     db.init()
-    p = Parser("Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?.", db)
+    db.close()
+    p = Parser("Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?.", f"{folder.name}/temp.db")
     p.do_MaltParser()
     print(p.root.buildTree())
     p.close()
-    # db.close()
     out, err = capfd.readouterr()
     with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
@@ -90,14 +90,16 @@ def testcase04(capfd):
 
 
 def testcase02(capfd):
+    # Init database
     folder = tempfile.TemporaryDirectory()
     db = Database(f"{folder.name}/temp.db")
     db.init()
-    p = Parser("Máy bay nào bay từ Đà Nẵng đến TP. Hồ Chí Minh mất 1 giờ ?.", db)
+    db.close()
+    # Process with parser
+    p = Parser("Máy bay nào bay từ Đà Nẵng đến TP. Hồ Chí Minh mất 1 giờ ?.", f"{folder.name}/temp.db")
     p.do_MaltParser()
     print(p.root.buildTree())
     p.close()
-    # db.close()
     out, err = capfd.readouterr()
     with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
