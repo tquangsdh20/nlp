@@ -46,6 +46,8 @@ def isNumber(text: str):
 def isTime(text: str):
     return bool(re.search("(\\d+:\\d+)", text))
 
+def isMaHieu(text: str):
+    return bool(re.search("m\\d", text))
 
 def lookup(word: str, db: Database):
     db.curr.execute(WORD_SEARCH.format(word=word))
@@ -90,9 +92,13 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
             # Check if it was TIME-type
             elif isTime(words[i]):
                 retLst.append((f"{words[i]}", "TIME"))
+            elif isMaHieu(words[i]):
+                retLst.append((f"{words[i]}", "NAME"))
             # In case of not matching any --> To be define
             else:
-                retLst.append((f"{words[i]}", "TBD"))
+            # Due to simplization parser will skip unknown word
+                # retLst.append((f"{words[i]}", "TBD"))
+                pass
             i += 1
             continue
         # In case of found in Database
@@ -116,8 +122,8 @@ def analysis(words: List[str], db: Database) -> List[Tuple[str, str]]:
                 retLst.append((word, wType))
                 found = num
                 if wType == "VERB":
-                    if (word == "đến") and verb:
-                        # Skip "đến" as "VERB"
+                    if ((word == "đến") or (word == "tới")) and verb:
+                        # Skip đến/tới as "VERB"
                         retLst.pop()
                         found = 0  # Điều kiện để nhận từ mới phải reset lại
                     else:

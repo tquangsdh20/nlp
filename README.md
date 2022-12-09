@@ -40,13 +40,34 @@ Viết chương trình thực hiện:
 
 ### Ngôn ngữ sử dụng: Python
 
-Để thực hiện được code sau cần cài đặt Python 3.7.15 và cài đặt môi trường theo file *enviroment.yml*. Source code gồm có 3 folders:
+Để thực hiện được code sau cần cài đặt Python 3.7.15
 
-1.	input: những file input vào gồm những câu cần phân tích ngữ pháp
+Project gồm có 3 folders chính:
+
+1.	input: những file input vào gồm những câu cần phân tích ngữ pháp và cơ sở dữ liệu
 2.	output: những file xuất ra kết quả phân tích cho các câu hỏi 
-3.	models: những file source code được viết bằng Python
+3.	model: những file source code được viết bằng Python
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Thực hiện chương trình
 
-Author: Tran Quang - 2070426
+TODO: Đoạn lệnh thực thi được viết ở file `main.py` như sau:
+
+``` py
+from model.Parser import Parser, Database
+
+if __name__ == "__main__":
+    # Cau 1: Xây dựng bộ phân tích cú pháp
+    db = Database()
+    db.init()
+    db.close()
+    fp = open("./input/query.csv", "r", encoding="utf-8")
+    lines = fp.readlines()
+    # Cau 2: Phân tích cú pháp và xuất ra các quan hệ của các thành phần của từng câu truy vấn.
+    for index in range(len(lines)):
+        parser = Parser(lines[index])
+        parser.do_MaltParser()
+        parser.AnalysisGrammarRelationTree(f"./output/output{index+1}.txt")
+```
+
+Kết quả xuất ra được lưu ở folder: `./output/`
+
