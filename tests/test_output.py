@@ -5,6 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from model.Parser import Parser, Node, Database
 import tempfile
 import json
+
 # test func Node
 def test_node(capfd):
     # Create nodes
@@ -65,37 +66,41 @@ def test_node(capfd):
         "))",
     ]
 
+
 import json
 
 js = dict()
-with open("./tests/expected","r",encoding="utf-8") as fp:
+with open("./tests/expected", "r", encoding="utf-8") as fp:
     js = json.loads(fp.read())
+
 
 def testcase04(capfd):
     folder = tempfile.TemporaryDirectory()
     db = Database(f"{folder.name}/temp.db")
     db.init()
-    p = Parser("Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?.", db)
+    db.close()
+    p = Parser("Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?.", f"{folder.name}/temp.db")
     p.do_MaltParser()
     print(p.root.buildTree())
     p.close()
-    # db.close()
     out, err = capfd.readouterr()
-    with open("./tests/expected","r",encoding="utf-8") as fp:
+    with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
         assert out == js["output4"]
 
 
 def testcase02(capfd):
+    # Init database
     folder = tempfile.TemporaryDirectory()
     db = Database(f"{folder.name}/temp.db")
     db.init()
-    p = Parser("Máy bay nào bay từ Đà Nẵng đến TP. Hồ Chí Minh mất 1 giờ ?.", db)
+    db.close()
+    # Process with parser
+    p = Parser("Máy bay nào bay từ Đà Nẵng đến TP. Hồ Chí Minh mất 1 giờ ?.", f"{folder.name}/temp.db")
     p.do_MaltParser()
     print(p.root.buildTree())
     p.close()
-    # db.close()
     out, err = capfd.readouterr()
-    with open("./tests/expected","r",encoding="utf-8") as fp:
+    with open("./tests/expected", "r", encoding="utf-8") as fp:
         js = json.loads(fp.read())
         assert out == js["output2"]

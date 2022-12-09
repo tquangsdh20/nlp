@@ -5,7 +5,7 @@ if __name__ == "__main__":
     # Initialization
     db = Database("./input/database.db")
     # fp = open("./input/query.csv")
-    with open("./input/query.csv",'r', encoding="utf-8") as fp:
+    with open("./input/query.csv", "r", encoding="utf-8") as fp:
         lines = fp.readlines()
         for line in lines:
             p = Parser(line, db)
